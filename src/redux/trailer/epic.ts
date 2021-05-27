@@ -14,6 +14,7 @@ export const getAllTrailer=($action:any)=>{
             .then((result:any)=>
             {
                 const {data} =result;
+                console.log('DATA',data);
                 return trailerAction.getAllTrailerSuccess(data);
             }).catch((error:any)=>{
                 return trailerAction.getAllTrailerFail(error);

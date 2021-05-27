@@ -2,16 +2,13 @@ import React, {Component, useEffect, useState} from 'react';
 import axios from 'axios';
 import {
   View,
-  StyleSheet,
   TouchableOpacity,
   Text,
-  Image,
   Dimensions,
   FlatList,
   ScrollView,
   
 } from 'react-native';
-import {Rating, AirbnbRating} from 'react-native-ratings';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   widthPercentageToDP as wp,
@@ -112,6 +109,7 @@ const detail_Item = ({route, navigation}) => {
         {loadflatlist.load ? (
           <View style={{alignItems: 'center'}}>
             <FlatList
+             
               keyExtractor={(item, index) => index?.toString()}
               data={datavideo}
               renderItem={itemdata => {

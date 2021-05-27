@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux'
-import {reducerTrailer} from './trailer/reducers'
-
+import reducerTrailer from './trailer/reducers'
+import reducerMovie from './movie/reducer'
 export default combineReducers({
-    trailer: reducerTrailer
+    trailer: reducerTrailer,
+    movie:reducerMovie
 });

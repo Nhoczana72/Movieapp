@@ -1,61 +1,51 @@
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
-import {
-  View,
-  TouchableOpacity,
-  Text,
-  FlatList,
-  Image,
-} from 'react-native';
+import {View, TouchableOpacity, Text, FlatList, Image} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {homeAction} from '../../redux/movie/action';
 import DropDownPicker from 'react-native-dropdown-picker';
 import styles from './styles';
 export default function Main(props) {
   let urlimage = 'https://image.tmdb.org/t/p/w500';
-  const api =
-    'https://api.themoviedb.org/4/list/1?api_key=c55cb28a013ddccfc78f28d3e9f29101';
-  const [dataAll, setDataAll] = useState([]);
   const [open, setOpen] = useState(false);
-
+  const dispatch = useDispatch();
   const [value, setValue] = useState(
-    'https://api.themoviedb.org/4/list/1?api_key=c55cb28a013ddccfc78f28d3e9f29101',
+    '/4/list/1?api_key=c55cb28a013ddccfc78f28d3e9f29101',
   );
   const [items, setItems] = useState([
     {
       label: 'Now playing',
       value:
-        'https://api.themoviedb.org/3/movie/now_playing?api_key=c55cb28a013ddccfc78f28d3e9f29101&language=en-US&page=1',
+        '/3/movie/now_playing?api_key=c55cb28a013ddccfc78f28d3e9f29101&language=en-US&page=1',
     },
     {
       label: 'Popular',
       value:
-        'https://api.themoviedb.org/3/movie/popular?api_key=c55cb28a013ddccfc78f28d3e9f29101&language=en-US&page=1',
+        '/3/movie/popular?api_key=c55cb28a013ddccfc78f28d3e9f29101&language=en-US&page=1',
     },
     {
       label: 'Top Rated',
       value:
-        'https://api.themoviedb.org/3/movie/top_rated?api_key=c55cb28a013ddccfc78f28d3e9f29101&language=en-US&page=1',
+        '/3/movie/top_rated?api_key=c55cb28a013ddccfc78f28d3e9f29101&language=en-US&page=1',
     },
     {
       label: 'Upcoming',
       value:
-        'https://api.themoviedb.org/3/movie/upcoming?api_key=c55cb28a013ddccfc78f28d3e9f29101&language=en-US&page=1',
+        '/3/movie/upcoming?api_key=c55cb28a013ddccfc78f28d3e9f29101&language=en-US&page=1',
     },
   ]);
-  console.log('value', value);
-  const load = () => {
-    axios(value)
-      .then(data => {
-        console.log('daTa', data);
-        let results = data.data.results;
-        console.log('réults', results);
-        setDataAll(results);
-      })
-      .catch(error => console.log('error', error));
+  const dispatchActionMovie = () => {
+    const action = homeAction.getALLMovies(value);
+    dispatch(action);
   };
+  const datamovie = useSelector(state => {
+    return state?.movie?.allMovie;
+  });
+
 
   useEffect(() => {
     try {
-      load();
+      
+      dispatchActionMovie();
     } catch (error) {
       console.log('error', error);
     }
@@ -81,7 +71,7 @@ export default function Main(props) {
           <FlatList
             style={styles.viewflatlist}
             keyExtractor={(item, index) => index.toString()}
-            data={dataAll}
+            data={datamovie}
             numColumns={2}
             renderItem={itemData => {
               return (
@@ -98,7 +88,6 @@ export default function Main(props) {
                       uri: `${urlimage}/${itemData.item.poster_path}`,
                     }}
                   />
-
                   <Text style={{color: 'white'}}>
                     {itemData.item.original_title}
                   </Text>

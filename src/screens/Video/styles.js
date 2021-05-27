@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 
   },
   containerItem:{
-      height:hp('33%'),
+      height:hp(30),
       width:wp(90),
       backgroundColor:'black',
       marginVertical:wp(5),
