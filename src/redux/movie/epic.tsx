@@ -10,19 +10,19 @@ export const getALLMovies = ($action: any) => {
       console.log('act', act);
       return $axios.api
         .get(
-          `${act?.payload}`,
+          `/3/movie/${act?.payload?.value || "popular"}?api_key=c55cb28a013ddccfc78f28d3e9f29101&language=en-US&page=${act?.payload?.page || 1}`
         )
         .then((rs: any) => {
           const data = rs.data.results;
-          console.log('result', data)
-          return homeAction.getALLMoviesSuccess(data);
+          const refesh = act?.payload?.page == 1;
+          return homeAction.getALLMoviesSuccess({ data, refesh });
         }).catch((error: any) => {
           homeAction.getALLMoviesFail(error);
         });
     }),
 
   );
-  }
+}
 // export const getAllActors = ($acton: any) => {
 //   return $acton.pipe(
 //     ofType(types.GET_All_ACTOR),

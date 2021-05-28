@@ -7,7 +7,6 @@ import {
   Dimensions,
   FlatList,
   ScrollView,
-  
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {
@@ -28,8 +27,6 @@ const detail_Item = ({route, navigation}) => {
   const [loadflatlist, setload] = useState({
     load: false,
   });
-
-  let urlimage = 'https://image.tmdb.org/t/p/w500';
 
   const load = () => {
     axios(
@@ -63,10 +60,10 @@ const detail_Item = ({route, navigation}) => {
     }
   }, [orientation]);
 
+  
   const CheckOrrientation = () => {
     console.log(orientation);
     Dimensions.addEventListener('change', newDimensions => {
-      console.log('ss', newDimensions);
       if (newDimensions.window.width > newDimensions.window.height) {
         setOrientation('landscape');
       } else {
@@ -82,15 +79,17 @@ const detail_Item = ({route, navigation}) => {
   return (
     <ScrollView style={styles.viewcontainerdetail}>
       <View style={{backgroundColor: 'black', width: 40}}>
-        <Icon.Button
-          name="long-arrow-left"
-          backgroundColor="gray"
-          size={20}
-          width={wp(40)}
-          onPress={() => navigation.goBack()}
-        />
+        
       </View>
-      <Header id={id} />
+      <Header
+        id={id}
+        title={data?.title}
+        language={spokenLang?.slice(0, -1)}
+        popularity={data?.popularity}
+        year={data?.release_date?.slice(0, 4)}
+        source={data?.backdrop_path}
+        rating={rating}
+      />
       <View style={styles.viewbtn}>
         <TouchableOpacity
           style={styles.btnsearch}
@@ -109,7 +108,6 @@ const detail_Item = ({route, navigation}) => {
         {loadflatlist.load ? (
           <View style={{alignItems: 'center'}}>
             <FlatList
-             
               keyExtractor={(item, index) => index?.toString()}
               data={datavideo}
               renderItem={itemdata => {

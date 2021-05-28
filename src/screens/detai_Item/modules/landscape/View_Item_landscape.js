@@ -19,7 +19,7 @@ const ViewLandscape= ({name,source}) => {
     <View style={styles.viewvidlandscape}>
       <YoutubePlayer
         width={'100%'}
-        play={true}
+        play={false}
         height={'100%'}
         videoId={`${source}`}
         forceAndroidAutoplay={false}

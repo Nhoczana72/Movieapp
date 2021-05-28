@@ -1,8 +1,7 @@
-import React, {Component, useEffect, useState} from 'react';
+import React from 'react';
 import {
   View,
   Text,
-  Image,
   
 } from 'react-native';
 import YoutubePlayer from 'react-native-youtube-iframe';
@@ -19,7 +18,7 @@ const ViewPortrait = ({name,source}) => {
     <View style={styles.viewvid}>
       <YoutubePlayer
         width={'95%'}
-        play={true}
+        play={false}
         height={'100%'}
         videoId={`${source}`}
         forceAndroidAutoplay={false}

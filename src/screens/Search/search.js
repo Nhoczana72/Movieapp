@@ -1,6 +1,6 @@
-import  React,{useEffect, useState} from 'react'
+import  React,{ useState} from 'react'
 import axios from 'axios'
-import { View ,StyleSheet, TouchableOpacity, TextInput,Text, FlatList, Button,Image} from 'react-native';
+import { View , TouchableOpacity, TextInput,Text,Image} from 'react-native';
 import { ScrollView } from 'react-native';
 import styles from './styles'
  const searchitem = (props)=>{
@@ -25,7 +25,7 @@ import styles from './styles'
 return(
     <View style={styles.container}>
         <View>
-                <Text style={styles.txtitle}>IMDb</Text>
+                <Text style={styles.txtitle}>iMDb</Text>
             </View>
             <View style={styles.txviewsearch}>
               <TextInput style={styles.inputtx}

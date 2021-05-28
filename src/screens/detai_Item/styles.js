@@ -95,6 +95,7 @@ import {
       color: '#FF9900',
       fontSize: 20,
       fontWeight: 'bold',
+      marginTop:50
     },
     txrating:{
       color: '#f1c40f',

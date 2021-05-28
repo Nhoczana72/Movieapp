@@ -17,9 +17,10 @@ const epicMiddleware=createEpicMiddleware();
 const store=createStore(rootReducers,applyMiddleware(epicMiddleware));
 epicMiddleware.run(rootEpic);
 
-// store.subscribe(()=>{
-//     console.log('state',store.getState());
 
-// // });
+store.subscribe(()=>{
+    console.log('state',store.getState());
+
+});
 // export const persistor=persistStore(store);
 export default store;

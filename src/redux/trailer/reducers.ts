@@ -1,24 +1,26 @@
-import {types} from './action'
+import { types } from './action'
 
-const initState={
-    allTrailer:[],
+const initState = {
+    allTrailer: [],
+    load: false
 };
- const reducerTrailer: any=(state=initState,actions:any)=>{
-    const {payload}=actions;
-   
-    switch (actions.type){
-        case types.GET_ALL_TRAILER:{
-            return {...state,allTrailer:[]};
+const reducerTrailer: any = (state = initState, actions: any) => {
+    const { payload } = actions;
+
+    switch (actions.type) {
+        case types.GET_ALL_TRAILER: {
+            return { ...state };
         }
-        case types.GET_ALL_TRAILER_SUCCESS:{
-            console.log('pAyloAD',payload);
-            console.log('state.allTrailer',state.allTrailer);
-            return {...state,allTrailer:state.allTrailer.concat(payload.youtube)};
+        case types.GET_ALL_TRAILER_SUCCESS: {
+
+            return { ...state, allTrailer: state.allTrailer.concat(payload.youtube) };
         }
-        case types.GET_ALL_TRAILER_FAIL:{
-            return {...state,};
+        case types.GET_ALL_TRAILER_FAIL: {
+            return { ...state, };
         }
-        
+
+
+
     }
     return state;
 };

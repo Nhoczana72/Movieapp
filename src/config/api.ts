@@ -6,7 +6,7 @@ const api =axios.create( {
 });
 export const createSevice =()=>{
   const apiSevice=new Service($axios.api);
-  
+
 }
 
 

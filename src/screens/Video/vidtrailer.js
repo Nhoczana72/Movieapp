@@ -1,25 +1,23 @@
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
-import {View, Text, StyleSheet, FlatList} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 import styles from './styles';
 import YoutubePlayer from 'react-native-youtube-iframe';
 
-import {trailerAction} from '../../redux/trailer/action';
-import {useSelector,useDispatch} from 'react-redux';
+import {homeAction} from '../../redux/movie/action';
+import {useSelector, useDispatch} from 'react-redux';
 import ItemVid from './itemvidtrailer';
 
 const VideoTrailer = props => {
-  const api =
-    '/3/movie/popular?api_key=c55cb28a013ddccfc78f28d3e9f29101&language=en-US&page=1';
+  const [page, setpage] = useState(1);
   const dispatch = useDispatch();
-
+  const api = `/3/movie/popular?api_key=c55cb28a013ddccfc78f28d3e9f29101&language=en-US&page=${page}`;
   const dispatchActionMovie = () => {
     const action = homeAction.getALLMovies(api);
     dispatch(action);
   };
-  const datamovie = useSelector(state=>{
-    return state?.movie?.allMovie
-  })
+  const datamovie = useSelector(state => {
+    return state?.movie?.allMovie;
+  });
   const datavid = useSelector(state => {
     return state?.trailer?.allTrailer;
   });
@@ -29,8 +27,8 @@ const VideoTrailer = props => {
     } catch (error) {
       console.log('error', error);
     }
-  }, []);
-
+  }, [page]);
+console.log(page)
   return (
     <View style={styles.container}>
       <Text style={styles.txtitle}>Most Popular</Text>
@@ -44,17 +42,19 @@ const VideoTrailer = props => {
         scrollEnabled={true}
         style={styles.listcontainer}
         data={datavid}
+        onEndReachedThreshold={0}
+        onEndReached={() => setpage(page + 1)}
         renderItem={({item}) => (
           <View style={styles.containerItem}>
             <Text style={styles.txviewitem}>{item.name}</Text>
             <YoutubePlayer
-        width={'95%'}
-        play={true}
-        height={'100%'}
-        videoId={`${item.source}`}
-        forceAndroidAutoplay={false}
-        onFullScreenChange={false}
-      />
+              width={'95%'}
+              play={false}
+              height={'100%'}
+              videoId={`${item.source}`}
+              forceAndroidAutoplay={false}
+              onFullScreenChange={false}
+            />
           </View>
         )}
         keyExtractor={(item, index) => index.toString()}></FlatList>
