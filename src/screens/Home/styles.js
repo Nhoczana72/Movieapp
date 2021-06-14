@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
       fontSize: 25,
       fontWeight: 'bold',
       margin: 5,
-      textAlign:'center'
+      textAlign:'center',
+      marginLeft:wp(35)
   },
   inputtx: {
       backgroundColor: 'gray',
@@ -69,7 +70,32 @@ const styles = StyleSheet.create({
       marginVertical: 10,
       color: 'white',
 
+  },
+  viewmenu:{
+    width:wp(62),
+    height:hp(30),
+    alignItems:'center',
+    backgroundColor:'#555555',
+    borderColor:'#FF9900',
+    borderWidth:1,
+    justifyContent:'space-around'
+  },
+  txmenutitle:{
+    color: '#FF9900',
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginVertical: 5,
+    textAlign:'center',
+  },
+  txmenu:{
+    color: 'white',
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginVertical: 5,
+    
+    
   }
+
 
 });
 

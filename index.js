@@ -9,32 +9,22 @@ import {name as appName} from './app.json';
 import {Text} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Video from './src/screens/Video/vidtrailer'
+import {Signup} from './src/screens/Signinup/Signup'
+import store from './src/redux/store'
+import {Provider} from 'react-redux'
+import { MenuProvider } from 'react-native-popup-menu';
+import {Test} from './src/screens/Test/test'
+import { loading } from './src/screens/Loading/loading';
 
-// function App() {
-//   const [open, setOpen] = useState(false);
-//   const [value, setValue] = useState(null);
-//   const [items, setItems] = useState([
-//     {label: 'Apple', value: 'apple'},
-//     {label: 'Apple', value: 'apple'},
-//     {label: 'Apple', value: 'apple'},
-//     {label: 'Apple', value: 'apple'},
-//     {label: 'Apple', value: 'apple'},
-//     {label: 'Apple', value: 'apple'},
-//     {label: 'Apple', value: 'apple'},
-//     {label: 'Apple', value: 'apple'},
-//     {label: 'Banana', value: 'banana'}
-//   ]);
+const app =()=>{
+    return(
+        <Provider store={store}>
+            <MenuProvider>
+            <Index/>
+            </MenuProvider>
+        </Provider>
+    );
+}
+AppRegistry.registerComponent(appName, () => app);
 
-//   return (
-//     <DropDownPicker
-//       open={open}
-//       value={value}
-//       items={items}
-//       setOpen={setOpen}
-//       setValue={setValue}
-//       setItems={setItems}
-//     />
-//   );
-// }
-AppRegistry.registerComponent(appName, () => Index);
 YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']);

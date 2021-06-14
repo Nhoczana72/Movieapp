@@ -1,11 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+import React from 'react';
 import {View, Text, Image} from 'react-native';
-import {Rating, AirbnbRating} from 'react-native-ratings';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import {Rating} from 'react-native-ratings';
+
 import styles from './styles';
 
 const Header = ({id, title, language, popularity, year, source, rating}) => {
