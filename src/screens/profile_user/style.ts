@@ -11,6 +11,14 @@ export const styles = StyleSheet.create({
       flex: 1
       
   },
+  txtitle: {
+    color: '#FF9900',
+    fontSize: 25,
+    fontWeight: 'bold',
+    textAlign:'center',
+    marginLeft:wp(38),
+    position:'absolute'
+},
 
   viewAvt: {
       height: hp('25%'),
@@ -81,6 +89,7 @@ export const styles = StyleSheet.create({
     width:wp(85),
     backgroundColor:'red',
     marginVertical:10,
+    minHeight:45
 },
 
 btntx:{
@@ -141,7 +150,9 @@ txoptionimage:{
   fontWeight:'500',
   marginLeft:10,
 },
-
+img:{
+  width:300,height:150
+}
 
 
 

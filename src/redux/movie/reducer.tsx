@@ -1,11 +1,13 @@
 import { types } from './action';
 const initState = {
   allMovie: [],
+  detailmovie:[]
 
 };
 
 const reducerMovie: any = (state = initState, actions: any) => {
   const { payload } = actions;
+  console.log('actuahsa',payload);
   switch (actions.type) {
     case types.GET_ALL_MOVIE: {
       return { ...state, payload };
@@ -16,6 +18,16 @@ const reducerMovie: any = (state = initState, actions: any) => {
     case types.GET_ALL_MOVIE_FAIL: {
       return { ...state, allMovie: [] };
     }
+    case types.GET_ALL_NEW_MOVIE: {
+      return { ...state };
+    }
+    case types.GET_ALL_NEW_MOVIE_SUCCESS: {
+      return { ...state, detailmovie:  payload  };
+    }
+    case types.GET_ALL_NEW_MOVIE_FAIL: {
+      return { ...state};
+    }
+    
   }
   return state;
 };

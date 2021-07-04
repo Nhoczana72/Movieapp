@@ -1,15 +1,28 @@
-import {useState} from 'react'
+import { useEffect, useState } from 'react'
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker'
-import { PermissionsAndroid } from 'react-native';
+import { Alert, PermissionsAndroid } from 'react-native';
 import lodash from 'lodash'
+import storage from '@react-native-firebase/storage'
+import Auth from '@react-native-firebase/auth'
+import { loading } from '../Loading/loading';
 
-export const ProfileLogic=()=>{
-    const [isopen,setopen]=useState({open:false})
-    const [sourcepath, setsourcepath] = useState<any>({
-      pathimage: [],
-      load: false,
-    });
-    
+export const ProfileLogic = (props) => {
+  const [inittializing, setInitiallizing] = useState(true);
+  const [user, setUser]: any = useState();
+  function onAuthStateChanged(user) {
+    setUser(user._user.email);
+    if (inittializing) setInitiallizing(false);
+  }
+  useEffect(() => {
+    const subscriber = Auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
+  }, [user]);
+
+  const [isopen, setopen] = useState({ open: false })
+  const [sourcepath, setsourcepath] = useState<any>();
+  const [uploading, setUploading] = useState(false);
+  const [transferred, setTransferred] = useState(0);
+
   const requestCameraPermission = async () => {
     try {
       const granted = await PermissionsAndroid.request(
@@ -34,7 +47,7 @@ export const ProfileLogic=()=>{
     }
   };
   const chooseFile = () => {
-    let options:any = {
+    let options: any = {
       title: 'Select Image',
       customButtons: [
         {
@@ -47,44 +60,79 @@ export const ProfileLogic=()=>{
         path: 'images',
       },
     };
-    launchImageLibrary(options,( response: any) => {
+    launchImageLibrary(options, (response: any) => {
       console.log('Response = ', response);
 
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else {
-        const source: string = lodash.get(response?.assets, [0], '')        
-        setsourcepath({pathimage: source, load: true});
-        setopen({open:false})
+        const source: string = lodash.get(response?.assets, [0], '')
+        setsourcepath(source.uri);
+        setopen({ open: false })
+
       }
     });
   };
 
- const Camera = async() => {
-   await requestCameraPermission();
-    let options:any = {
+  const Camera = async () => {
+    await requestCameraPermission();
+    let options: any = {
       storageOptions: {
         skipBackup: true,
         path: 'images',
       },
     };
     launchCamera(options, (response: any) => {
-      console.log('Response = ', response);
 
       if (response.didCancel) {
         console.log('User cancelled image picker');
-      
+
       } else {
         const source: string = lodash.get(response?.assets, [0], '')
-        setsourcepath({pathimage:source,load:true})
-        setopen({open:false})
+        
+        setsourcepath(source.uri)
+        setopen({ open: false })
       }
     });
 
   }
-  
-
-    return{
-        isopen,setopen,sourcepath,chooseFile,Camera,setsourcepath
+  const uploadImage = async () => {
+    const { uri } = sourcepath;
+    setUploading(true);
+    setTransferred(0);
+    const task = storage()
+      .ref(`${user}/`)
+      .putFile(sourcepath, {
+        cacheControl: 'no-store', // disable caching
+      });
+    // set progress state
+    task.on('state_changed', snapshot => {
+      console.log('loading',Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 10000)
+    });
+    try {
+      await task;
+    } catch (e) {
+      console.error(e);
     }
+    console.log(transferred)
+    setUploading(false);
+    Alert.alert(
+      "Update Image",
+      "Update success!",
+     
+    );
+  };
+
+
+return {
+  isopen,
+  setopen,
+  sourcepath,
+  chooseFile,
+  Camera,
+  setsourcepath,
+  uploadImage,
+  user
+
+}
 }

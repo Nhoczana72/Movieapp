@@ -15,12 +15,12 @@ import {Provider} from 'react-redux'
 import { MenuProvider } from 'react-native-popup-menu';
 import {Test} from './src/screens/Test/test'
 import { loading } from './src/screens/Loading/loading';
-
+import {App} from './src/App'
 const app =()=>{
     return(
         <Provider store={store}>
             <MenuProvider>
-            <Index/>
+            <App/>
             </MenuProvider>
         </Provider>
     );
