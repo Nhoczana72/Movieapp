@@ -3,7 +3,7 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp
     } from 'react-native-responsive-screen';
- const styles = StyleSheet.create({
+ export const styles = StyleSheet.create({
   container:{
     flex:1,
     alignItems:'center',backgroundColor:'#333333'
@@ -43,12 +43,14 @@ btnselect:{
 },
 viewitem:{
     flexDirection:'row',
+    justifyContent:'space-around',
     width:wp(100),
     backgroundColor:'yellow',
     height:25
 },
 viewtitleitem:{
     flexDirection:'row',
+    justifyContent:'space-around',
     width:wp(100),
     backgroundColor:'green',
     height:25

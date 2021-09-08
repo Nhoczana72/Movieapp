@@ -68,7 +68,8 @@ const styles = StyleSheet.create({
 
   },
   viewflatlist: {
-     marginBottom:80
+     marginBottom:100,
+     width:"100%"
   },
   txviewnavi: {
       marginVertical: 10,

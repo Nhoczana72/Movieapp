@@ -89,7 +89,7 @@ export const styles = StyleSheet.create({
     width:wp(85),
     backgroundColor:'red',
     marginVertical:10,
-    minHeight:45
+    minHeight:45,
 },
 
 btntx:{
@@ -152,6 +152,14 @@ txoptionimage:{
 },
 img:{
   width:300,height:150
+},
+txinput:{
+  minHeight:35,width:wp(85)
+},
+viewupdateimage:{
+  width:wp(33),
+  alignItems:'center',
+  marginVertical: 5,
 }
 
 

@@ -15,16 +15,15 @@ import {
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import {bookingLogic} from './booking.logic';
-import {dataoption} from './dataoption';
 import {Alert} from 'react-native';
 import IconMenu from 'react-native-vector-icons/Entypo';
+import { useSelector ,useDispatch} from 'react-redux';
+import { Headerapp } from '../../components/Header';
 
 export function Test({route,navigation}) {
   const {
-    users,
     user,
     submit,
-    onAuthStateChanged,
     select,
     data,
     text,
@@ -33,20 +32,19 @@ export function Test({route,navigation}) {
     setdata,
     clean,
   } = bookingLogic(navigation);
-
+  const dispatch=useDispatch()
+const users=useSelector((state:any)=>state.user.profileuser.email)
   const [cine, setcine] :any= useState();
   const id = route.params.id;
-  const [datamovie, getdatamovie] = useState();
+  const [datamovie, getdatamovie] = useState([]);
   useEffect(() => {
     firestore()
       .collection(`movie/${id}/1`)
       .get({source: 'server'})
       .then((value:any) => getdatamovie(value._docs));
 
-    const subscriber = Auth().onAuthStateChanged(onAuthStateChanged);
 
-    return subscriber;
-  }, [users]);
+  }, []);
 
   const addticket = () => {
     firestore()
@@ -92,6 +90,7 @@ export function Test({route,navigation}) {
   };
 
   const search = dataa => {
+    clean()
     setcine(dataa);
     firestore()
       .doc(`rap/${dataa.rap}/${dataa.day}/${dataa.time}/phong/${dataa.room}`)
@@ -119,19 +118,12 @@ export function Test({route,navigation}) {
 
   return (
     <View style={styles.container}>
-       <View
-          style={{ flexDirection: 'row', alignItems: 'center',   width: '100%',backgroundColor:'black',paddingTop: 15 ,borderBottomWidth:1,borderColor:'#FF9900',marginBottom:5}}>
-          <TouchableOpacity style={{width:30,height:30}}
-          onPress={()=>navigation.goBack()}>
-          <IconMenu name="chevron-left" color="#FF9900" size={25} />
-          </TouchableOpacity>
-          <Text style={{ color: '#FF9900',
-    fontSize: 25,
-    fontWeight: 'bold',
-    textAlign:'center',
-    marginLeft:widthPercentageToDP(20),
-    position:'absolute'}}>Booking Tickets</Text>
-        </View>
+       <Headerapp
+        title="Booking Tickets"
+        icon='chevron-left'
+        onpress={()=>navigation.goBack() }
+      />
+      
       <ScrollView>
         <View style={styles.container}>
           
@@ -143,14 +135,19 @@ export function Test({route,navigation}) {
               alignItems: 'center',
               justifyContent: 'space-around',
             }}>
-            {datamovie ? (
+            {datamovie? 
+            datamovie.length==0?
+            (
+              <Text>Not Data</Text>
+            )
+            :(
               <FlatList
                 ListHeaderComponent={
                   <View style={styles.viewtitleitem}>
-                    <Text>Cinema</Text>
-                    <Text> Day</Text>
-                    <Text> Time</Text>
-                    <Text>Room</Text>
+                    <Text style={{width:'32%',textAlign:'center'}}>Cinema</Text>
+                    <Text  style={{width:'20%',textAlign:'center'}}> Day</Text>
+                    <Text style={{width:'20%',textAlign:'center'}}> Time</Text>
+                    <Text style={{width:'28%',textAlign:'center'}}>Room</Text>
                   </View>
                 }
                 data={datamovie}
@@ -159,10 +156,10 @@ export function Test({route,navigation}) {
                     <TouchableOpacity
                       style={styles.viewitem}
                       onPress={() => search(item.item._data)}>
-                      <Text>{item.item._data.rap}</Text>
-                      <Text>{item.item._data.day}</Text>
-                      <Text>{item.item._data.time}</Text>
-                      <Text>{item.item._data.room}</Text>
+                      <Text style={{width:'32%',textAlign:'center'}}>{item.item._data.rap}</Text>
+                      <Text style={{width:'20%',textAlign:'center'}}>{item.item._data.day}</Text>
+                      <Text style={{width:'20%',textAlign:'center'}}>{item.item._data.time}</Text>
+                      <Text  style={{width:'28%',textAlign:'center'}} >{item.item._data.room}</Text>
                     </TouchableOpacity>
                   );
                 }}

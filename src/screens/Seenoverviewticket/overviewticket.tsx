@@ -4,39 +4,22 @@ import {styles} from './styles'
 import firestore from '@react-native-firebase/firestore/lib/index';
 import {Auth} from '../../components/firebase';
 import IconMenu from 'react-native-vector-icons/Entypo';
+import { useSelector } from 'react-redux';
 
 export const tickets=(props)=>{
-    const [inittializing, setInitiallizing] = useState(true);
-
-    const [users, setuser] = useState('');      
-
-    const [data, setdata] = useState();
-    function onAuthStateChanged(user) {
-      setuser(user._user.email);
-      if (inittializing) setInitiallizing(false);
-    }
-
-
-    useEffect(() => {
-    
-        const subscriber = Auth().onAuthStateChanged(onAuthStateChanged);
-        
-        return subscriber;
-        
-        
-      }, [users]);
+  const user=useSelector((state:any)=>{return state.user.profileuser.email})
+    const [data, setdata] = useState([]);
+  
       useEffect(() => {
-        if(users!=''){
+        if(user!=''){
         firestore()
-          .collection(`Tickets/${users}/1`)
+          .collection(`Tickets/${user}/1`)
           .get({source:'server'})
           .then((value:any)=>setdata(value._docs));
         
         }
-      }, [users]);
+      }, []);
      
-
-
     return(
         <View style={styles.container}>
           <View
@@ -47,11 +30,14 @@ export const tickets=(props)=>{
           </TouchableOpacity>
           <Text style={styles.txtitle}>Tickets</Text>
         </View>
-            <Text>{users? users : 'aa'}</Text>
             {data?
-            <FlatList
+              data.length==0?
+                <Text>Not Data</Text>
+
+              :
+              <FlatList
             data={data}
-            renderItem={item=>{console.log(item)
+            renderItem={item=>{
                  return(<View style={styles.viewitem}>
                      <Text>Ordinal number : {item.index}</Text>
                      <Text>Movie : {item.item._data.moviename}</Text>
@@ -65,7 +51,9 @@ export const tickets=(props)=>{
                      
                  </View>)}}
             />
-                 :<Text>Not Data</Text>}
+            
+            
+                :<Text>Not Data</Text>}
 
         </View>
     )

@@ -3,7 +3,7 @@ export const types = {
     LOADING: 'LOADING',
     LOGOUT: 'LOGOUT',
     GETUSER:'GETUSER',
-    GETUSERSUCCESS:'GETUSERSUCCESS',
+    GETPROFILEUSER:'GETUSERSUCCESS',
     GETUSERFAIL:'GETUSERFAIL'
     
 
@@ -15,8 +15,8 @@ export const userAction = {
     loading: (payload: any) => action(types.LOADING, payload),
     logout: (payload: any) => action(types.LOGOUT, payload),
     getuser: (payLoad: any) => action(types.GETUSER, payLoad),
-    getusersuccess: (payload: any) =>
-      action(types.GETUSERSUCCESS, payload),
+    getprofileuser: (payload: any) =>
+      action(types.GETPROFILEUSER, payload),
     getusersFail: (payload: any) => action(types.GETUSERFAIL, payload),
 
 };

@@ -2,7 +2,7 @@
  * @format
  */
 
-import {AppRegistry, View, YellowBox} from 'react-native';
+import {AppRegistry, View, YellowBox,LogBox} from 'react-native';
 import React, {useState} from 'react';
 import Index from './src/navigation/index';
 import {name as appName} from './app.json';
@@ -26,5 +26,6 @@ const app =()=>{
     );
 }
 AppRegistry.registerComponent(appName, () => app);
+LogBox.ignoreAllLogs(true)
 
-YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']);
+

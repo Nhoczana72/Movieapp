@@ -33,7 +33,8 @@ const styles = StyleSheet.create({
         height: hp(5),
         width: wp(30),
         backgroundColor: 'red',
-        marginVertical: 10
+        marginVertical: 10,
+        minHeight:38
 
 
     },
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
         margin: 5,
         textAlign: 'center',
         fontWeight: '700',
-        fontSize: 16
+        fontSize: hp(3)
 
     },
 

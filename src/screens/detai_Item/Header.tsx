@@ -6,22 +6,21 @@ import styles from './styles';
 
 const Header = ({id, title, language, popularity, year, source, rating}) => {
   let urlimage = 'https://image.tmdb.org/t/p/w500';
-  
   return (
     <View style={styles.viewtop}>
       <View style={styles.viewimage}>
         <Image
-          style={styles.viewimage}
+          style={styles.image}
           source={{
             uri: `${urlimage}/${source} `,
           }}></Image>
       </View>
       <View style={styles.viewdetail}>
-        <Text style={styles.txtitle}>{title}</Text>
         <View style={styles.viewtxdetail}>
           <Text style={styles.txdetail}>Language : {language}</Text>
-
           <Text style={styles.txdetail}>Year : {year}</Text>
+          </View>
+          <View style={styles.viewtxdetail}>
           <Text style={styles.txrating}>Rating: {rating}/10</Text>
           <Rating
             type="custom"
@@ -29,9 +28,8 @@ const Header = ({id, title, language, popularity, year, source, rating}) => {
             showRating={false}
             ratingCount={5}
             tintColor="black"
-            onFinishRating={value => console.log('value', value)}
             imageSize={20}
-            style={{paddingVertical: 10, backgroundColor: 'black'}}
+            style={{backgroundColor: 'black'}}
           />
         </View>
       </View>

@@ -1,103 +1,96 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, TouchableOpacity, Text, FlatList, Image } from 'react-native';
+import { View, TouchableOpacity, Text, FlatList, Image, RefreshControl } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import DropDownPicker from 'react-native-dropdown-picker';
 import { Rating } from 'react-native-ratings';
 import styles from './styles';
-import IconMenu from 'react-native-vector-icons/Entypo';
-import {GroupBtn} from '../../components/groupbtnrow'
-import {
-  Menu,
-  MenuOptions,
-  MenuOption,
-  MenuTrigger,
-} from 'react-native-popup-menu';
+import { GroupBtn } from '../../components/groupbtnrow'
+import { Headerapp } from '../../components/Header'
 import { HomeLogic } from './home.logic'
-import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
-import { color } from 'react-native-reanimated';
+import { SliderBox } from "react-native-image-slider-box";
+import { SLIDER } from '../../assets'
 export default function Main(props) {
+  const img = [
+    SLIDER,
+    "https://source.unsplash.com/1024x768/?nature",
+    "https://image.tmdb.org/t/p/w500/dq18nCTTLpy9PmtzZI6Y2yAgdw5.jpg",
+    "https://source.unsplash.com/1024x768/?tree", // Network image
+    // Local image
+  ]
   const {
-    user,
     urlimage,
-    value, setValue,
-    page, setpage,
-    refFlatlist, refValue, Logout, datamovie
+    value,
+    setValue,
+    datamovie,
+    refreshing,
+    onRefresh
   } = HomeLogic(props)
+  const renderitem = (itemData) => {
+    return (
+      <TouchableOpacity
+        style={styles.viewitem}
+        onPress={() =>
+          props.navigation.navigate('Detail_Item', {
+            id: itemData.item.id,
+          })
+        }>
+        <Image
+          style={{ height: 250, width: '100%' }}
+          source={{
+            uri: `${urlimage}/${itemData.item.poster_path}`,
+          }}
+        />
 
+        <Text style={{ color: 'white', textAlign: 'center' }}>
+          {itemData.item.original_title}
+        </Text>
+        <Rating
+          startingValue={
+            itemData?.item?.vote_average
+              ? itemData.item.vote_average / 2
+              : 0
+          }
+          showRating={false}
+          ratingCount={5}
+          tintColor="#111111"
+          imageSize={13}
+        />
+      </TouchableOpacity>
+    );
+  }
 
   return (
     <View style={styles.container}>
-      <View style={{ width: '95%', height: 45, paddingTop: 15 }}>
-        <View
-          style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 5, justifyContent: 'flex-start', width: '95%' }}>
-          
-          <TouchableOpacity style={{width:30,height:30}}
-          onPress={()=>props.navigation.openDrawer()
+      <Headerapp
+        title="Booking Movie"
+        icon='menu'
+        onpress={() => props.navigation.openDrawer()}
+      />
 
-          }>
-            
-          <IconMenu name="menu" color="#FF9900" size={25} />
-          </TouchableOpacity>
-
-          <Text style={styles.txtitle}>IMDb</Text>
-        </View>
-      
+      <View style={{ height: 100 }}>
+        <SliderBox images={img}
+          // style={{width:'95%',height:100,marginTop:5}} 
+          sliderBoxHeight={100}
+          dotColor="#FFEE58"
+          inactiveDotColor="#90A4AE"
+          autoplay
+          circleLoop
+          resizeMode="stretch"
+        />
       </View>
-   
-     <GroupBtn
-      initValue={value}
-      setinitValue={setValue}
-     />
-      <View>
+      {/* <Image style={{resizeMode='stretch'}}/> */}
+      <GroupBtn
+        initValue={value}
+        setinitValue={setValue}
+      />
+
+      <View  style={styles.viewflatlist}>
         <FlatList
-          ref={refFlatlist}
+           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} ></RefreshControl>}
           style={styles.viewflatlist}
           keyExtractor={(item, index) => index.toString()}
           data={datamovie}
-          ListFooterComponent={
-            <View
-              style={{ backgroundColor: '#666666', height: 50, width: '100%' }}>
-              <Text style={{ textAlign: 'center' }}>Loading more...</Text>
-            </View>
-          }
-          onEndReached={() => {
-            setpage(preState => preState + 1);
-          }}
           numColumns={2}
-          onEndReachedThreshold={0.001}
-          renderItem={itemData => {
-            return (
-              <TouchableOpacity
-                style={styles.viewitem}
-                onPress={() =>
-                  props.navigation.navigate('Detail_Item', {
-                    id: itemData.item.id,
-                  })
-                }>
-                <Image
-                  style={{ height: 250, width: '100%' }}
-                  source={{
-                    uri: `${urlimage}/${itemData.item.poster_path}`,
-                  }}
-                />
-
-                <Text style={{ color: 'white', textAlign: 'center' }}>
-                  {itemData.item.original_title}
-                </Text>
-                <Rating
-                  startingValue={
-                    itemData?.item.vote_average
-                      ? itemData?.item.vote_average / 2
-                      : 0
-                  }
-                  showRating={false}
-                  ratingCount={5}
-                  tintColor="#111111"
-                  imageSize={13}
-                />
-              </TouchableOpacity>
-            );
-          }}
+          renderItem={itemData => renderitem(itemData)}
         />
       </View>
     </View>

@@ -5,6 +5,8 @@ import Main from '../screens/Home/Main';
 import searchitem from '../screens/Search/search';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Foundation';
+import IconVideo from 'react-native-vector-icons/Entypo';
+
 import VideoTrailer from '../screens/Video/vidtrailer';
 import {drawnavi} from './drawnavigation'
 
@@ -45,7 +47,7 @@ export const Navigator = () => {
         options={{
           tabBarLabel: 'Video',
           tabBarIcon: ({color, size}) => (
-            <Icon name="magnifying-glass" color={'white'} size={20} />
+            <IconVideo name="video" color={'white'} size={20} />
           ),
         }}
       />

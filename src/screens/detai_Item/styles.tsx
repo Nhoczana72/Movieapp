@@ -7,44 +7,43 @@ import {
     viewcontainerdetail: {
       backgroundColor: 'black',
     },
-    
     viewimage: {
-      width: wp("43%"),
-      height: hp("30%"),
-      // resizeMode:'stretch',
-      alignItems: 'center'
+      width: '100%',
+      height: hp("27%"),
+      alignItems: 'center',
+      backgroundColor:'#333333'
+    },
+    image: {
+      width: wp("95%"),
+      height: hp("27%"),
+      alignItems: 'center',
+      backgroundColor:'gray'
     },
     viewtop: {
-      flexDirection: 'row',
+      flexDirection: 'column'
     },
     viewdetail: {
-      width:  wp("57%"),
-      height: hp(25),
+      width:  '100%',
       margin: 5,
-      justifyContent:'center',
-      alignContent: 'center',
-      alignItems: 'center',
+      justifyContent:'space-evenly',
+      flexDirection:'row'
     },
     viewtxdetail: {
-        marginTop:10,
-      width: wp(40),
-      height: hp(25),
-     
+        marginTop:10,width:wp(40)
     },
     txdetail: {
       color: 'white',
-      marginLeft:wp(5)
     },
     viewbtn: {
-      flexDirection: 'row',
+      flexDirection: 'row',justifyContent:'center'
     },
     btnsearch: {
       borderWidth: 1,
       borderColor: '#FFF000',
       backgroundColor: '#FF3300',
       height: 30,
-      marginLeft: 2,
       marginTop: 5,
+      marginHorizontal:5
     },
   
     btntxsearch: {
@@ -100,12 +99,11 @@ import {
     txrating:{
       color: '#f1c40f',
       textAlign: 'center',
-      fontSize: 18,
-      marginTop: 20,
+      fontSize: 15,
     },
     sImage:{width: 150, height: 220},
     txtitlee:{
-    color: 'yellow',
+    color: '#f1c40f',
      fontSize: 20,
       textAlign: 'center',
       marginTop:wp(5)

@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 
 
   txviewitem: {
-      color: 'white',
+      color: 'yellow',
       textAlign:'center'
 
   },

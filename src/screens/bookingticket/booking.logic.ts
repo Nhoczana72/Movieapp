@@ -3,8 +3,7 @@ import Picker from 'react-native-picker'
 import {Alert}from 'react-native'
 
 export const bookingLogic=(props)=>{
-    const [inittializing, setInitiallizing] = useState(true);
-    const [users, setuser] = useState();      
+      
     
   const [bool, setbool] = useState([
     false,
@@ -22,10 +21,7 @@ export const bookingLogic=(props)=>{
     book: false,
   });
   const [data, setdata] = useState([]);
-    function onAuthStateChanged(user) {
-      setuser(user._user.email);
-      if (inittializing) setInitiallizing(false);
-    }
+    
 
     
   const [text, settext] = useState('');
@@ -54,10 +50,6 @@ export const bookingLogic=(props)=>{
 
   }
 
-
-
-
-
     const select = index => {
         if (data[index] == false) {
           const a = [];
@@ -70,11 +62,11 @@ export const bookingLogic=(props)=>{
             }
           }
           setbool(a);
-        } else Alert.alert('aaaa', `Ai đó đã đặt vị trí ${index} trước bạn rồi!!`);
+        } else Alert.alert('Message  T^T', `Someone booked seat before you!! Seat: ${index} \nPlease make another reservation`);
       };
     
     return{
-        users,onAuthStateChanged,select,bool,data,user,submit,setdata,text,setUser,clean
+        select,bool,data,user,submit,setdata,text,setUser,clean
     }
 
 

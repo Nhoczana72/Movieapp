@@ -8,10 +8,12 @@ import {
 } from 'react-native-responsive-screen';
 import styles from './styles';
 import {Auth} from '../../components/firebase'
-
+import { useDispatch } from 'react-redux';
+import { userAction } from '../../redux/users/action_user';
 
 
 export const Signin = ({navigation}) => {
+  const dispatch=useDispatch()
   const [valuesignin, setvaluesignup] =
     useState({
         email: '',
@@ -26,10 +28,7 @@ export const Signin = ({navigation}) => {
       Auth()
       .signInWithEmailAndPassword(valuesignin.email.toLowerCase(),valuesignin.password)
       .then(()=>{
-        Alert.alert(
-          'Alert',
-          `Wellcome ${valuesignin.email}`,
-        ) ;navigation.navigate('Navigator')
+       dispatch(userAction.loading(false))
     })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {

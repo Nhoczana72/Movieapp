@@ -28,7 +28,6 @@ const VideoTrailer = props => {
       console.log('error', error);
     }
   }, [page]);
-console.log(page)
   return (
     <View style={styles.container}>
       <Text style={styles.txtitle}>Most Popular</Text>

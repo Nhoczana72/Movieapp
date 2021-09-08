@@ -7,11 +7,16 @@ import {ViewLandscape} from '../modules/landscape/View_Item_landscape'
 import {ViewPortrait} from '../modules/portrait/View_Item_portrait'
 import IconMenu from 'react-native-vector-icons/Entypo';
 import { widthPercentageToDP } from 'react-native-responsive-screen';
+import { Headerapp } from '../../../components/Header';
 
 
 export const Trailer=(props:any)=>{
     const [datavideo, setdatavideo] = useState([]);
     const [orientation, setOrientation] = useState('portrait');
+    const [size,setsize]=useState({
+      width:200,
+      height:100
+    })
    const dispatch=useDispatch()
    const id=props.route.params.id
     const loadvideo=()=>{
@@ -19,6 +24,7 @@ export const Trailer=(props:any)=>{
         return dispatch(action)
     }
     const data=useSelector((state:any)=>{return state.video.allVideo})
+
       useEffect(() => {
         try {
           loadvideo();
@@ -32,47 +38,44 @@ export const Trailer=(props:any)=>{
         Dimensions.addEventListener('change', newDimensions => {
           if (newDimensions.window.width > newDimensions.window.height) {
             setOrientation('landscape');
+            setsize({width:newDimensions.window.width*90/100,height:newDimensions.window.height*100/100})
           } else {
             setOrientation('portrait');
           }
         });};
+        const renderitem=(itemdata)=>{
+          {
+            return orientation == 'portrait' ? (
+              <View key={itemdata?.index + ''}>
+                <ViewPortrait
+                  name={itemdata?.item.name}
+                  source={itemdata?.item.source}
+                />
+              </View>
+            ) : (
+              <View>
+                <ViewLandscape
+                  name={itemdata?.item.name}
+                  source={itemdata?.item.source}
+                />
+              </View>
+            );
+          }
+        }
         return(
           <View style={{flex:1,backgroundColor:'black',alignItems:'center'}}>
-             <View
-          style={{ flexDirection: 'row', alignItems: 'center',   width: '100%',backgroundColor:'black',paddingTop: 15 ,borderBottomWidth:1,borderColor:'#FF9900',marginBottom:5}}>
-          <TouchableOpacity style={{width:30,height:30}}
-          onPress={()=>props.navigation.goBack()}>
-          <IconMenu name="chevron-left" color="#FF9900" size={25} />
-          </TouchableOpacity>
-          <Text style={{ color: '#FF9900',
-    fontSize: 25,
-    fontWeight: 'bold',
-    textAlign:'center',
-    marginLeft:widthPercentageToDP(38),
-    position:'absolute'}}>Trailer</Text>
-        </View>
+             <Headerapp
+        title="Trailer"
+        icon='chevron-left'
+        onpress={()=>props.navigation.goBack() }
+      />
+             
             <FlatList
               keyExtractor={(item, index) => index?.toString()}
               data={data}
-              renderItem={itemdata => {
-                return orientation == 'portrait' ? (
-                  <View key={itemdata?.index + ''}>
-                    <ViewPortrait
-                      name={itemdata?.item.name}
-                      source={itemdata?.item.source}
-                    />
-                  </View>
-                ) : (
-                  <View>
-                    <ViewLandscape
-                      name={itemdata?.item.name}
-                      source={itemdata?.item.source}
-                    />
-                  </View>
-                );
-              }}
+              renderItem={itemdata => renderitem(itemdata)}
             />
                  </View>
-        )
+        );
       
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { widthPercentageToDP } from 'react-native-responsive-screen';
 
 interface GroupBtn {
     initValue?: string,
@@ -37,7 +38,7 @@ export const GroupBtn = (props: GroupBtn) => {
                             padding: 5
                         }} onPress={() => onchage(g.value)}>
                         <Text style={{
-                            color: choose === g.value ? 'white' : 'white'
+                            color: choose === g.value ? 'white' : 'white',fontSize:widthPercentageToDP(4)
                         }} >{g.label}</Text></TouchableOpacity>
                 );
             })}

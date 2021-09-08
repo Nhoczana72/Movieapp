@@ -9,7 +9,7 @@ export const getALLMovies = ($action: any) => {
     mergeMap((act: any) => {
       return $axios.api
         .get(
-          `/3/movie/${act?.payload?.value || "popular"}?api_key=c55cb28a013ddccfc78f28d3e9f29101&language=en-US&page=${act?.payload?.page || 1}`
+          `/3/movie/${act?.payload?.value || "popular"}?api_key=c55cb28a013ddccfc78f28d3e9f29101&language=en-US&page=1`
         )
         .then((rs: any) => {
           const data = rs.data.results;
@@ -32,7 +32,6 @@ export const getAllNewMovies = ($acton: any) => {
         )
         .then((rs: any) => {
           const {data} = rs;
-          console.log('Dâta', data);
           return homeAction.getAllNewMoviesSuccess(data);
         })
         .catch((err: any) => {

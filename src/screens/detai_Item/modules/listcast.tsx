@@ -1,15 +1,7 @@
 import React,{ useEffect, useState} from 'react'
 import { View ,Text,FlatList,Image} from 'react-native';
 import axios from 'axios';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-  } from 'react-native-responsive-screen';
   import styles from '../styles'
-
-
-
-
 const List_cast=({id,overview})=>{
     const [datacast, setdatacast]:any = useState([]);
     let urlimage = 'https://image.tmdb.org/t/p/w500';
@@ -20,7 +12,6 @@ const List_cast=({id,overview})=>{
         )
           .then(data => {
             const resul = data.data;
-            console.log('datacast', resul);
     
             setdatacast(resul);
           })
@@ -30,15 +21,28 @@ const List_cast=({id,overview})=>{
       useEffect(() => {
         try {
           loadactor();
-         
-          
         } catch (error) {
           console.log('error', error);}
         }, []);
 
     return (
-        <View  >
-                
+        <View  > 
+          <View style={{justifyContent: 'center'}}>
+          <Text
+            style={styles.txtitlee}>
+            Over View{' '}
+          </Text>
+          <Text
+            style={{
+              color: '#EEEEEE',
+              fontSize: 15,
+              marginHorizontal: 30,
+              fontStyle: 'italic',
+            }}>
+            {' '}
+            {overview}
+          </Text>
+        </View>
         <Text
           style={styles.txtitlee}>
           Top Billed Cast
@@ -80,22 +84,7 @@ const List_cast=({id,overview})=>{
             }}
           />
         </View>
-        <View style={{justifyContent: 'center'}}>
-          <Text
-            style={styles.txtitlee}>
-            Over View{' '}
-          </Text>
-          <Text
-            style={{
-              color: '#EEEEEE',
-              fontSize: 15,
-              marginHorizontal: 30,
-              fontStyle: 'italic',
-            }}>
-            {' '}
-            {overview}
-          </Text>
-        </View>
+        
       </View>
    
    

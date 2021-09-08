@@ -5,23 +5,16 @@ import lodash from 'lodash'
 import storage from '@react-native-firebase/storage'
 import Auth from '@react-native-firebase/auth'
 import { loading } from '../Loading/loading';
-
+import * as Progress from 'react-native-progress';
+import { useSelector } from 'react-redux';
 export const ProfileLogic = (props) => {
-  const [inittializing, setInitiallizing] = useState(true);
-  const [user, setUser]: any = useState();
-  function onAuthStateChanged(user) {
-    setUser(user._user.email);
-    if (inittializing) setInitiallizing(false);
-  }
-  useEffect(() => {
-    const subscriber = Auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber;
-  }, [user]);
+  const [progress,setprogess]=useState(0)
+ const profile=useSelector((state:any)=>{return state.user.profileuser})
+
 
   const [isopen, setopen] = useState({ open: false })
   const [sourcepath, setsourcepath] = useState<any>();
   const [uploading, setUploading] = useState(false);
-  const [transferred, setTransferred] = useState(0);
 
   const requestCameraPermission = async () => {
     try {
@@ -99,23 +92,23 @@ export const ProfileLogic = (props) => {
   const uploadImage = async () => {
     const { uri } = sourcepath;
     setUploading(true);
-    setTransferred(0);
+    setprogess(0);
     const task = storage()
-      .ref(`${user}/`)
+      .ref(`${profile.email}/`)
       .putFile(sourcepath, {
         cacheControl: 'no-store', // disable caching
       });
     // set progress state
     task.on('state_changed', snapshot => {
-      console.log('loading',Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 10000)
+      setprogess(Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 10000);
     });
     try {
       await task;
     } catch (e) {
       console.error(e);
     }
-    console.log(transferred)
     setUploading(false);
+    setsourcepath('')
     Alert.alert(
       "Update Image",
       "Update success!",
@@ -132,7 +125,7 @@ return {
   Camera,
   setsourcepath,
   uploadImage,
-  user
+  profile,progress
 
 }
 }

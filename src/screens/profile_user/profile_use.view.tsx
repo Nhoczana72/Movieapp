@@ -14,56 +14,47 @@ import firestore from '@react-native-firebase/firestore'
 import { Auth, database } from '../../components/firebase';
 import { ProfileLogic } from './profile_use.logic'
 import { styles } from './style';
+import * as Progress from 'react-native-progress';
 
-import { Authentication } from '../system.logic'
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 import IconMenu from 'react-native-vector-icons/Entypo';
+import { Headerapp } from '../../components/Header';
 
 export const ProfileScreen = (props) => {
   const noimage = '../../assets/image/no_Image.jpg';
   const {
-    user,
+    profile,
     isopen,
     setopen,
     sourcepath,
     chooseFile,
     Camera,
     setsourcepath,
-    uploadImage
+    uploadImage,progress
   } = ProfileLogic(props);
-  const [valueprofile, setvalueprofile]: any = useState();
-  const usersCollection =
-    firestore().collection('user').doc(user).onSnapshot(documentSnapshot => {
-      const data = documentSnapshot.data()
-      return setvalueprofile(data)
-    });
+
 //    const geturl = storage().ref(`${user}`).getDownloadURL().then((url:any) => { return  seturi(url) } );
 
   useEffect(() => {
-    storage().ref(`${user}`).getDownloadURL().then((url:any) => { return  seturi(url) } )
-
-    usersCollection()
-
+    storage().ref(`${profile.email}`).getDownloadURL().then((url:any) => { return  seturi(url) } )
     return;
-  }, [valueprofile]);
+  }, [sourcepath]);
   const [uri, seturi]: any = useState()
-
+if(uri!=null){profile.uri=uri}
  
 
 
   return (
     <View style={styles.container}>
-        <View
-          style={{ flexDirection: 'row', alignItems: 'center',   width: '100%',backgroundColor:'black',paddingTop: 15 }}>
-          <TouchableOpacity style={{width:30,height:30}}
-          onPress={()=>props.navigation.openDrawer()}>
-          <IconMenu name="menu" color="#FF9900" size={25} />
-          </TouchableOpacity>
-          <Text style={styles.txtitle}>Profile</Text>
-        </View>
+      <Headerapp
+        title="Profile"
+        icon='menu'
+        onpress={()=>props.navigation.openDrawer()}
+      />
+       
       
    
       <ScrollView>
@@ -72,9 +63,9 @@ export const ProfileScreen = (props) => {
             <Image
               style={styles.viewimage}
               source={
-                uri
+                profile.uri
                   ? {
-                    uri: uri,
+                    uri: profile.uri,
                   }
                   : require(noimage)
               }
@@ -86,49 +77,51 @@ export const ProfileScreen = (props) => {
             </TouchableOpacity>
 
 
-            <Text style={styles.txname}>{valueprofile ? valueprofile.fname : 'No name'}</Text>
+            <Text style={styles.txname}>{profile.fname }</Text>
 
           </View>
 
-          <View style={styles.viewprofile}>
-            <View style={styles.viewdetailprofile}>
-              <Text>Gender</Text>
-              <Text>{valueprofile?.gender}</Text>
-            </View>
-
-            <View style={styles.viewdetailprofile}>
-              <Text>Birthday</Text>
-              <Text>{valueprofile?.birthday}</Text>
-            </View>
-            <View style={styles.viewdetailprofile}>
-              <Text>Telephone</Text>
-              <Text>{valueprofile?.yourphone}</Text>
-            </View>
-            <View style={styles.viewdetailprofile}>
-              <Text>Address</Text>
-              <Text>{valueprofile?.address}</Text>
-            </View>
-            
-          </View >
+          
           {sourcepath?
-          <View style={styles.viewAvt}> 
+          <View style={styles.viewupdateimage}> 
           <Image
           style={styles.viewimage}
           source={{
             uri: sourcepath,
           }}
         />
+        <Progress.Bar progress={progress} width={200}/>
+
          <TouchableOpacity style={styles.btnlogin}
             onPress={() => uploadImage()}
           >
             <Text style={styles.btntx}>Update Image</Text>
           </TouchableOpacity>
+        </View>:
+        <View style={styles.viewprofile}>
+        <View style={styles.viewdetailprofile}>
+          <Text>Gender</Text>
+          <Text>{profile.gender}</Text>
+        </View>
+
+        <View style={styles.viewdetailprofile}>
+          <Text>Birthday</Text>
+          <Text>{profile.birthday}</Text>
+        </View>
+        <View style={styles.viewdetailprofile}>
+          <Text>Telephone</Text>
+          <Text>{profile.yourphone}</Text>
+        </View>
+        <View style={styles.viewdetailprofile}>
+          <Text>Address</Text>
+          <Text>{profile.address}</Text>
+        </View>
         
-        </View>:<></>
+      </View >
         }
           
           <TouchableOpacity style={styles.btnlogin}
-
+          onPress={()=>props.navigation.navigate('profileupdate')}
           >
             <Text style={styles.btntx}>Update Profile</Text>
           </TouchableOpacity>

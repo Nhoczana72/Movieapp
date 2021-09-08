@@ -17,6 +17,8 @@ export function Signup({ navigation }) {
 
   const change=()=>{
       if(repassword!=valuesignup.password){return setmessage('value repassword different password')}
+      else{return setmessage('')}
+      
   }
   const register = () => {
     if (valuesignup.email != '' && valuesignup.password != '') {
@@ -51,7 +53,7 @@ export function Signup({ navigation }) {
     firestore()
       .collection('user')
       .doc(valuesignup.email.toLowerCase()).set({
-        email: valuesignup.email,
+        email: valuesignup.email.toLowerCase(),
         password: valuesignup.password,
         lname: valuesignup.lname,
         fname: valuesignup.fname,

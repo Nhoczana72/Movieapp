@@ -5,14 +5,12 @@ import {
   Text,
   ScrollView,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import Header from './Header';
 import List_cast from './modules/listcast';
 import styles from './styles';
 import {useDispatch,useSelector}from 'react-redux'
 import {homeAction} from '../../redux/movie/action'
-import IconMenu from 'react-native-vector-icons/Entypo';
-import { widthPercentageToDP } from 'react-native-responsive-screen';
+import { Headerapp } from '../../components/Header';
 
 const detail_Item = ({route, navigation}) => {
   const {id} = route.params;
@@ -32,24 +30,16 @@ const detail_Item = ({route, navigation}) => {
   
   let spokenLang = '';
   data?.spoken_languages?.map(it => {
-    return (spokenLang += it?.english_name + ',');
+    return (spokenLang += it?.english_name + ', ');
   });
   const rating = data.vote_average;
   return (
     <ScrollView style={styles.viewcontainerdetail}>
-      <View
-          style={{ flexDirection: 'row', alignItems: 'center',   width: '100%',backgroundColor:'black',paddingTop: 15 ,borderBottomWidth:1,borderColor:'#FF9900',marginBottom:5}}>
-          <TouchableOpacity style={{width:30,height:30}}
-          onPress={()=>navigation.goBack()}>
-          <IconMenu name="chevron-left" color="#FF9900" size={25} />
-          </TouchableOpacity>
-          <Text style={{ color: '#FF9900',
-    fontSize: 25,
-    fontWeight: 'bold',
-    textAlign:'center',
-    marginLeft:widthPercentageToDP(38),
-    position:'absolute'}}>{data?.title}</Text>
-        </View>
+      <Headerapp
+        title={data?.title}
+        icon='chevron-left'
+        onpress={()=>navigation.goBack() }
+      />
       <Header
         id={id}
         title={data?.title}
@@ -63,7 +53,6 @@ const detail_Item = ({route, navigation}) => {
         <TouchableOpacity
           style={styles.btnsearch}
           onPress={()=>navigation.navigate('trailer',{id:id})}
-          
           >
           <Text style={styles.btntxsearch}>Trailer</Text>
         </TouchableOpacity>
@@ -72,7 +61,6 @@ const detail_Item = ({route, navigation}) => {
         </TouchableOpacity>
       </View>
       <List_cast id={id} overview={data?.overview} />
-      
     </ScrollView>
   );
 };
