@@ -12,7 +12,7 @@ export default function Main(props) {
   const img = [
     SLIDER,
     "https://source.unsplash.com/1024x768/?nature",
-    "https://image.tmdb.org/t/p/w500/dq18nCTTLpy9PmtzZI6Y2yAgdw5.jpg",
+    "https://source.unsplash.com/1024x768/?water",
     "https://source.unsplash.com/1024x768/?tree", // Network image
     // Local image
   ]
