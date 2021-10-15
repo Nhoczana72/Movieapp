@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { View, TouchableOpacity, Text, FlatList, Image, RefreshControl } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
 import { Rating } from 'react-native-ratings';
 import styles from './styles';
 import { GroupBtn } from '../../components/groupbtnrow'
@@ -10,11 +9,11 @@ import { SliderBox } from "react-native-image-slider-box";
 import { SLIDER } from '../../assets'
 export default function Main(props) {
   const img = [
-    SLIDER,
+    SLIDER,// Local image
     "https://source.unsplash.com/1024x768/?nature",
     "https://source.unsplash.com/1024x768/?water",
     "https://source.unsplash.com/1024x768/?tree", // Network image
-    // Local image
+    
   ]
   const {
     urlimage,
@@ -66,7 +65,7 @@ export default function Main(props) {
         onpress={() => props.navigation.openDrawer()}
       />
 
-      <View style={{ height: 100 }}>
+      <View style={{ height: 100,width:"100%" }}>
         <SliderBox images={img}
           // style={{width:'95%',height:100,marginTop:5}} 
           sliderBoxHeight={100}
@@ -75,6 +74,7 @@ export default function Main(props) {
           autoplay
           circleLoop
           resizeMode="stretch"
+          
         />
       </View>
       {/* <Image style={{resizeMode='stretch'}}/> */}

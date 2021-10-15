@@ -1456,17 +1456,17 @@
   resolved "https://registry.npmjs.org/@react-native-community/masked-view/-/masked-view-0.1.11.tgz"
   integrity sha512-rQfMIGSR/1r/SyN87+VD8xHHzDYeHaJq6elOSCAD+0iLagXkSI2pfA0LmSXP21uw5i3em7GkkRjfJ8wpqWXZNw==
 
-"@react-native-firebase/app@^12.0.0":
+"@react-native-firebase/app@12.0.0":
   version "12.0.0"
-  resolved "https://registry.npmjs.org/@react-native-firebase/app/-/app-12.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-12.0.0.tgz#52b647a8fc65695eeec89f45bcd7538d727d5864"
   integrity sha512-ONIQUOiApnCwN/Xxnl6o9305hsuUsQaCWOp8JdlIniNM7QkkIlGqYgnvPowjEXEJVhMVME/B6NSNSidnOd/hHw==
   dependencies:
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
-"@react-native-firebase/auth@^12.0.0":
+"@react-native-firebase/auth@12.0.0":
   version "12.0.0"
-  resolved "https://registry.npmjs.org/@react-native-firebase/auth/-/auth-12.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-12.0.0.tgz#3e31053318f4925e778822c978835c08b93c12e4"
   integrity sha512-+tudhzegmLOfVKVAD+wgSUXMc5Hc0J3F7cqr8yxYa3vjJEsRTf+F0HsxQOMtJZ7TNIFWyVIoZqzmD4Tb04caCw==
 
 "@react-native-firebase/database@^12.0.0":
@@ -6925,7 +6925,7 @@ open@^6.2.0:
   dependencies:
     is-wsl "^1.1.0"
 
-opencollective-postinstall@^2.0.0, opencollective-postinstall@^2.0.1:
+opencollective-postinstall@^2.0.1:
   version "2.0.3"
   resolved "https://registry.npmjs.org/opencollective-postinstall/-/opencollective-postinstall-2.0.3.tgz"
   integrity sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==
@@ -7507,14 +7507,6 @@ react-native-dropdown-picker@^5.1.15:
   resolved "https://registry.npmjs.org/react-native-dropdown-picker/-/react-native-dropdown-picker-5.1.15.tgz"
   integrity sha512-5GrEvpyemk9eA0ukkglZmJQg8G9G3SVqRVmsK9HPfGhpWm8jZVmi2OB7GhS8DkWGbPjbf44eF0BZfMPmN7dpwA==
 
-react-native-firebase@^5.6.0:
-  version "5.6.0"
-  resolved "https://registry.npmjs.org/react-native-firebase/-/react-native-firebase-5.6.0.tgz"
-  integrity sha512-I+o3zNLdIz4pxWTCSZH70M1BcPl+SdqKQfurOT0sWcaMSL2ecDqVy0PCTmN7ORt7/Z879Er6PLgA/psjArQlmw==
-  dependencies:
-    opencollective-postinstall "^2.0.0"
-    prop-types "^15.7.2"
-
 react-native-gesture-handler@^1.10.3:
   version "1.10.3"
   resolved "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-1.10.3.tgz"
@@ -7601,11 +7593,6 @@ react-native-modal@^11.10.0:
   dependencies:
     prop-types "^15.6.2"
     react-native-animatable "1.3.3"
-
-react-native-picker@^4.3.7:
-  version "4.3.7"
-  resolved "https://registry.npmjs.org/react-native-picker/-/react-native-picker-4.3.7.tgz"
-  integrity sha1-mELoxi/w2LZ26VFNn5FyQTwFGKg=
 
 react-native-popup-menu@^0.15.10:
   version "0.15.10"

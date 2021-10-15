@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         margin: 5,
         textAlign: 'center',
         fontWeight: '700',
-        fontSize: hp(3)
+        fontSize: wp(5)
 
     },
 

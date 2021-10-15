@@ -78,7 +78,7 @@ export const Signin = ({navigation}) => {
       style={styles.btnlogin}
       onPress={login}
       >
-      <Text style={styles.btntx}>Log In</Text>
+      <Text style={styles.btntx}>Sign In</Text>
     </TouchableOpacity>
     <View style={{flexDirection: 'row',marginVertical:10}}>
       <Text>Don't have an account?   </Text>

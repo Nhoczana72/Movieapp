@@ -1,5 +1,4 @@
 import {useState} from 'react'
-import Picker from 'react-native-picker'
 import {Alert}from 'react-native'
 
 export const bookingLogic=(props)=>{
