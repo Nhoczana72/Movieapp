@@ -61,31 +61,36 @@ const users=useSelector((state:any)=>state.user.profileuser.email)
   };
 
   //set data dùng trong tạo database movie
-  const setdatamovie = () => {
+  const setdatamovie = (rap,ngay,gio,phong) => {
+    setrap(rap,ngay,gio,phong)
     firestore()
       .collection(`movie/${id}/1`)
       .add({
-        rap: 'cgvhungvuong',
-        day: '24',
-        time: '7pm',
-        room: 'p3',
+        rap: rap,
+        day: ngay,
+        time: gio,
+        room: phong,
       })
       .then((value:any) => {
+        console.log('value', value);
+
         setdata(value?._data.a);
-        console.log('data', data);
       });
   };
   // Handle user state changes
   //dùng trong tạo database ghế rạp
-  const setrap = (dataa:any) => {
-    console.log('dta', dataa);
+  const setrap = (rap,ngay,gio,phong) => {
     firestore()
-      .doc(`rap/${dataa.rap}/${dataa.day}/${dataa.time}/phong/${dataa.room}`)
+      .doc(`rap/${rap}/${ngay}/${gio}/phong/${phong}`)
+      //.doc(`rap/aeontanphu/2/6am/phong/p2`)
+
       .set({
         a: bool,
       })
       .then((value:any) => {
         setdata(value?._data.a);
+        console.log('data', data);
+
       });
   };
 
@@ -123,7 +128,12 @@ const users=useSelector((state:any)=>state.user.profileuser.email)
         icon='chevron-left'
         onpress={()=>navigation.goBack() }
       />
+      {/* <TouchableOpacity onPress={()=>setdatamovie("aeontanbinh","3","12pm","p3")}>
+        <Text style={{color:'yellow'}}>Tạo vé phim</Text>
+      </TouchableOpacity> */}
+     
       
+
       <ScrollView>
         <View style={styles.container}>
           

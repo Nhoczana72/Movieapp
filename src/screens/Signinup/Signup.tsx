@@ -135,7 +135,8 @@ export function Signup({ navigation }) {
             <View style={{ flexDirection: 'row', marginVertical: 10 }}>
               <Text>Allreary have an account?   </Text>
               <TouchableOpacity style={{ backgroundColor: 'white' }}
-                onPress={login}
+                onPress={()=>    navigation.navigate('Login')
+              }
               >
                 <Text style={{ color: 'blue' }}>Sign in</Text>
               </TouchableOpacity>

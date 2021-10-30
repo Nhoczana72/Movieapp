@@ -59,7 +59,7 @@ export const ProfileLogic = (props) => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else {
-        const source: string = lodash.get(response?.assets, [0], '')
+        const source: Object = lodash.get(response?.assets, [0], '')
         setsourcepath(source.uri);
         setopen({ open: false })
 

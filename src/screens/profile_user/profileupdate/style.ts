@@ -67,7 +67,7 @@ btntx:{
 
 
 txinput:{
-  minHeight:30,height:wp(10),width:wp(85),borderWidth:1,borderRadius:10
+  minHeight:30,height:wp(10),width:wp(85),borderWidth:1,borderRadius:10,paddingLeft:20,justifyContent:"center"
 }
 
 
